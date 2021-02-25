@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Token, { IToken } from './Token';
+import Token from './Token';
+
+interface IToken {
+  token_id: string;
+  image: string;
+}
 
 export default function App() {
   const [tokens, setTokens] = useState<IToken[]>([]);
@@ -13,7 +18,7 @@ export default function App() {
   }, [setTokens]);
 
   const childs = tokens.map((token: IToken) => (
-    <Token key={token.token_id} {...token} />
+    <Token key={token.token_id} image={token.image} />
   ));
 
   return <div className="items-grid">{childs}</div>;

@@ -35,7 +35,6 @@ const parseURI = (
   image_url?: string;
   image_data?: string;
   properties?: { image?: string; metadata?: string };
-  isError?: boolean;
 }> => {
   const jsonHeader = 'data:application/json,';
   try {
@@ -47,18 +46,18 @@ const parseURI = (
       })
         .then((response) => response.json())
         .catch(() => {
-          return { isError: true };
+          return {};
         });
     }
   } catch (e) {
-    return Promise.resolve({ isError: true });
+    return Promise.resolve({});
   }
 };
 
 export class seeding1614170774636 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     console.log('\u001b[33mSEEDING: Start\u001b[39m');
-    const N = 50;
+    const N = 20;
     const size = 100;
     let compledtedPages = 0;
 
@@ -98,6 +97,7 @@ export class seeding1614170774636 implements MigrationInterface {
 
     const promises = new Array(N).fill(null).map((_, i) => fetchTokens(i));
     await Promise.all(promises);
+    console.log('\u001b[33mSEEDING: Finished\u001b[39m');
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {

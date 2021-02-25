@@ -1,19 +1,19 @@
 import React from 'react';
 
-export interface IToken {
-  token_id: string;
+interface IProps {
   image: string;
 }
 
-export default function Token({ image }: IToken): React.ReactElement {
+export default function Token({ image }: IProps): React.ReactElement {
   const canBeRendered = image.includes('<svg');
+
   if (canBeRendered) {
     return <div className="item" dangerouslySetInnerHTML={{ __html: image }} />;
   }
 
   return (
     <div className="item">
-      <img src={image}/>
+      <img src={image} />
     </div>
   );
 }
