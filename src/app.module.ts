@@ -10,8 +10,13 @@ import { Token } from './token.entity';
   imports: [
     TypeOrmModule.forRoot(),
     TypeOrmModule.forFeature([Token]),
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname, '..', 'front'),
+    //   serveRoot: '/dist',
+    // }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
+      // exclude: ['/api*', '/dist*'],
       exclude: ['/api*'],
     }),
   ],
