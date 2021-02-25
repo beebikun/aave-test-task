@@ -1,0 +1,57 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Kunla Aave Test Task</title>
+
+    <style type="text/css">
+      img {
+        border: 1px solid;
+      }
+
+      #root {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        column-gap: 20px;
+        row-gap: 20px;
+      }
+
+      .item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+  <script type="text/javascript">
+    (async () => {
+      const response = await fetch(
+        '/api/tokens',
+        { headers: { 'Content-Type': 'application/json' } },
+      );
+      const data = await response.json();
+      const root = document.querySelector('#root');
+      data.tokens.forEach(token => {
+        const div = document.createElement('div');
+        div.className = 'item';
+        div.setAttribute('data-id', token.token_id);
+        if (token.image.includes('<svg')) {
+          div.innerHTML = token.image;
+        } else {
+          div.innerHTML = `<img src="${token.image}"/>`;
+        }
+        root.appendChild(div);
+      });
+    })();
+  </script>
+
+  </body>
